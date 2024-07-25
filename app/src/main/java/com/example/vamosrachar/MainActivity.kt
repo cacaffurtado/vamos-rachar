@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts = TextToSpeech(this, this)
 
         resultado()
-        //btnCompartilhamento()
+        btnCompartilhamento()
     }
 
 
@@ -105,15 +105,34 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
-    override fun onDestroy() {
-        tts.stop()
-        tts.shutdown()
-        super.onDestroy()
-    }
-
     fun clickFale(v: View){
         Log.v("My Log", "$v pressed")
         tts.speak(mensagemResultado(), TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
+    // BOTAO COMPARTILHAMENTO
+    fun btnCompartilhamento(){
+        val btnShare : ImageButton=findViewById(R.id.btnCompart)
+
+        btnShare.setOnClickListener{
+            val perPessoa:TextView =findViewById(R.id.perPessoa)
+
+            if (perPessoa.text.toString().isNotEmpty()){
+                val sendIntent : Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, mensagemResultado())
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        tts.stop()
+        tts.shutdown()
+        super.onDestroy()
+    }
 }
