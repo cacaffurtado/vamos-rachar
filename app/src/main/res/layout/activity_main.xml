@@ -67,7 +67,7 @@
         android:layout_marginTop="28dp"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valorPessoa"
+        app:layout_constraintTop_toBottomOf="@+id/perPessoa"
         app:srcCompat="@drawable/sound_67" />
 
     <ImageButton
@@ -81,7 +81,7 @@
         app:srcCompat="@drawable/icons8_share_64" />
 
     <TextView
-        android:id="@+id/valorPessoa"
+        android:id="@+id/perPessoa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
