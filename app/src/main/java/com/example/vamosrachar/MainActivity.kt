@@ -1,3 +1,10 @@
+//FEATURES PRINCIPAIS:
+//1. (2 pontos) - Divisões do Valor pelo Número de Pessoas. Valor Formatado.
+//2. (2 pontos) - Ícone Principal
+//3. (2 pontos) - Compartilhamento do Valor Final
+//4. (2 pontos) - Fala o Valor Final usando TTS
+//5. (2 pontos) - Apresentação do Valor é automática. Sem a necessidade de clicar.
+
 package com.example.vamosrachar
 
 import java.util.Locale
@@ -21,6 +28,7 @@ import android.content.Intent
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var tts: TextToSpeech
+    private var ttsSucess: Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +48,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
     // RESULTADO
+    //5. Apresentação do Valor é automática. Sem a necessidade de clicar.
     fun resultado(){
         val valorConta:TextView=findViewById(R.id.valorConta)
         val qtdPessoa :TextView=findViewById(R.id.qtdPessoa)
@@ -73,7 +82,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         })
     }
 
-    // CALCULAR E FORMATAR RESULTADO
+    // CALCULO FORMATADO
+    //1. Divisões do Valor pelo Número de Pessoas. Valor Formatado.
     fun calculoFormatado(conta : Double, grupo : Double) : String{
         val perPessoa = conta/grupo
         val dFormat = DecimalFormat("##.##")
@@ -90,27 +100,35 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             val qtdTexto = qtdPessoa.text.toString()
             val perPessoa = calculoFormatado(valorTexto.toDouble(), qtdTexto.toDouble())
 
-            return "Opa, caloteiros! A conta deu ${valorTexto} reais, viiiu? Dividindo para nós (${qtdTexto} queridos), fica ${perPessoa} para cada, tá bem? Sem estresse, agilizem!"
+            return "Opa, caloteiros! A conta deu ${valorTexto} reais. Dividindo para nós " +
+                    "(${qtdTexto} queridos), fica ${perPessoa} para cada, tá bem? Sem estresse, " +
+                    "agilizem!"
         } else {
             return "Faltam campos serem preenchidos"
         }
     }
 
-    // BOTAO TextToSpeech
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             tts.language = Locale.getDefault()
+            ttsSucess=true
         } else {
-            Log.e("My Log", "Failed to initialize TTS engine.")
+            ttsSucess=false
         }
     }
 
+    //4. Fala o Valor Final usando TTS
     fun clickFale(v: View){
-        Log.v("My Log", "$v pressed")
-        tts.speak(mensagemResultado(), TextToSpeech.QUEUE_FLUSH, null, null)
+        if (tts.isSpeaking) {
+            tts.stop()
+        }
+        if(ttsSucess) {
+            tts.speak(mensagemResultado(), TextToSpeech.QUEUE_FLUSH, null, null)
+        }
+
     }
 
-    // BOTAO COMPARTILHAMENTO
+    //3. Compartilhamento do Valor Final
     fun btnCompartilhamento(){
         val btnShare : ImageButton=findViewById(R.id.btnCompart)
 
