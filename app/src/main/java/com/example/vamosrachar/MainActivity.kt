@@ -1,21 +1,25 @@
 package com.example.vamosrachar
 
-import android.os.Bundle
+import java.util.Locale
+import java.text.DecimalFormat
+
 import android.speech.tts.TextToSpeech
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.text.DecimalFormat
+
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.TextView
+import android.util.Log
+
+import android.widget.ImageButton
 import android.content.Intent
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var tts: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +32,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        tts = TextToSpeech(this, this)
+
         resultado()
-        //shareButton()
-        //tts = TextToSpeech(this, this)
+        //btnCompartilhamento()
     }
+
 
     // RESULTADO
     fun resultado(){
@@ -43,17 +49,15 @@ class MainActivity : AppCompatActivity() {
         valorConta.addTextChangedListener(object:TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.isNotEmpty() && qtdPessoa.text.isNotEmpty() && !qtdPessoa.text.equals("0")){
                     val valorDouble = valorConta.text.toString().toDouble()
                     val qtdDouble = qtdPessoa.text.toString().toDouble()
                     perPessoa.text = calculoFormatado(valorDouble, qtdDouble)
-                } else {
-                    perPessoa.text = " "
                 }
             }
         })
+
         // TEXTWATCHER : qtdPessoa
         qtdPessoa.addTextChangedListener(object:TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -64,8 +68,6 @@ class MainActivity : AppCompatActivity() {
                     val valorDouble = valorConta.text.toString().toDouble()
                     val qtdDouble = qtdPessoa.text.toString().toDouble()
                     perPessoa.text = calculoFormatado(valorDouble, qtdDouble)
-                } else {
-                    perPessoa.text = " "
                 }
             }
         })
@@ -88,13 +90,30 @@ class MainActivity : AppCompatActivity() {
             val qtdTexto = qtdPessoa.text.toString()
             val perPessoa = calculoFormatado(valorTexto.toDouble(), qtdTexto.toDouble())
 
-            return "Opa, caloteiros! A conta deu ${valorTexto} reais, viiiu? Dividindo para nós (${qtdTexto} queridos), fica ${perPessoa}, tá bem? Sem estresse, agiliza!"
+            return "Opa, caloteiros! A conta deu ${valorTexto} reais, viiiu? Dividindo para nós (${qtdTexto} queridos), fica ${perPessoa} para cada, tá bem? Sem estresse, agilizem!"
         } else {
             return "Faltam campos serem preenchidos"
         }
     }
 
     // BOTAO TextToSpeech
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            tts.language = Locale.getDefault()
+        } else {
+            Log.e("My Log", "Failed to initialize TTS engine.")
+        }
+    }
 
+    override fun onDestroy() {
+        tts.stop()
+        tts.shutdown()
+        super.onDestroy()
+    }
+
+    fun clickFale(v: View){
+        Log.v("My Log", "$v pressed")
+        tts.speak(mensagemResultado(), TextToSpeech.QUEUE_FLUSH, null, null)
+    }
 
 }
