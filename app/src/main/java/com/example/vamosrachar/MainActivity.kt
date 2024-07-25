@@ -75,12 +75,24 @@ class MainActivity : AppCompatActivity() {
     fun calculoFormatado(conta : Double, grupo : Double) : String{
         val perPessoa = conta/grupo
         val dFormat = DecimalFormat("##.##")
-        return "R$${dFormat.format(perPessoa)} PARA CADA PESSOA!"
+        return "R$${dFormat.format(perPessoa)}"
     }
 
-    // BOTAO COMPARTILHAMENTO
-
     // CRIAR MENSAGEM
+    fun mensagemResultado() : String{
+        val valorConta:TextView = findViewById(R.id.valorConta)
+        val qtdPessoa:TextView = findViewById(R.id.qtdPessoa)
+
+        if (valorConta.text.isNotEmpty() && qtdPessoa.text.isNotEmpty()) {
+            val valorTexto = valorConta.text.toString()
+            val qtdTexto = qtdPessoa.text.toString()
+            val perPessoa = calculoFormatado(valorTexto.toDouble(), qtdTexto.toDouble())
+
+            return "Opa, caloteiros! A conta deu ${valorTexto} reais, viiiu? Dividindo para nós (${qtdTexto} queridos), fica ${perPessoa}, tá bem? Sem estresse, agiliza!"
+        } else {
+            return "Faltam campos serem preenchidos"
+        }
+    }
 
     // BOTAO TextToSpeech
 
