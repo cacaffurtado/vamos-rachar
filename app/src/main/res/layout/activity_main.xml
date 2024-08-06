@@ -10,11 +10,11 @@
     <EditText
         android:id="@+id/valorConta"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="280dp"
         android:ems="10"
-        android:inputType="numberDecimal"
         android:hint="valor da conta"
+        android:inputType="numberDecimal"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
     <EditText
         android:id="@+id/qtdPessoa"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="quantidade de pessoas"
