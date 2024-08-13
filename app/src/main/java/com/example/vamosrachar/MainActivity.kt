@@ -85,9 +85,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     // CALCULO FORMATADO
     //1. Divisões do Valor pelo Número de Pessoas. Valor Formatado.
     fun calculoFormatado(conta : Double, grupo : Double) : String{
+        val moeda = getString(R.string.moeda)
+
         val perPessoa = conta/grupo
         val dFormat = DecimalFormat("##.##")
-        return "R$${dFormat.format(perPessoa)}"
+        return "$moeda${dFormat.format(perPessoa)}"
     }
 
     // CRIAR MENSAGEM
@@ -100,9 +102,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             val qtdTexto = qtdPessoa.text.toString()
             val perPessoa = calculoFormatado(valorTexto.toDouble(), qtdTexto.toDouble())
 
-            return "Opa, caloteiros! A conta deu ${valorTexto} reais. Dividindo para nós " +
-                    "(${qtdTexto} queridos), fica ${perPessoa} para cada, tá bem? Sem estresse, " +
-                    "agilizem!"
+            return getString(R.string.mensagem, valorTexto, qtdTexto, perPessoa)
         } else {
             return "Faltam campos serem preenchidos"
         }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">LETS SPLIT</string>
+    <string name="moeda">$</string>
+    <string name="mensagem">Hey, losers! The bill was %1$s dollars. Spliting it between us (%2$s
+        sweethearts), it is %3$s for each of us, okay? No stress, hurry up!</string>
+</resources>
+
