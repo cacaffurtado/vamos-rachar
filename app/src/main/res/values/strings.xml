@@ -3,4 +3,10 @@
     <string name="moeda">R$</string>
     <string name="mensagem">Opa, caloteiros! A conta deu %1$s reais. Dividindo para nós (%2$s
         queridos), fica %3$s para cada, tá bem? Sem estresse, agilizem!</string>
+    <string name="hintValorConta" tools:ignore="ExtraTranslation">valor da conta</string>
+    <string name="hintQtdPessoa" tools:ignore="ExtraTranslation">quantidade de pessoas</string>
+    <string name="descBtnCompart" tools:ignore="MissingTranslation">Ícone de Compartilhamento.
+        Click e compartilhe a mensagem com os indivíduos que racharão com você.</string>
+    <string name="descBtnSom" tools:ignore="ExtraTranslation,MissingTranslation">Ícone de Som.
+        Click e escute a mensagem para os indivíduos que racharão com você.</string>
 </resources>

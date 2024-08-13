@@ -4,5 +4,11 @@
     <string name="moeda">$</string>
     <string name="mensagem">Hey, losers! The bill was %1$s dollars. Spliting it between us (%2$s
         sweethearts), it is %3$s for each of us, okay? No stress, hurry up!</string>
+    <string name="hintValorConta" tools:ignore="ExtraTranslation">bill value</string>
+    <string name="hintQtdPessoa" tools:ignore="ExtraTranslation">number of people</string>
+    <string name="descBtnCompart" tools:ignore="MissingTranslation">Share icon. Click and share
+        the message with the people who will split the bill with you.</string>
+    <string name="descBtnSom" tools:ignore="ExtraTranslation,MissingTranslation">Sound icon. Click and listen to
+        the message to the people who will split the bill with you.</string>
 </resources>
 
